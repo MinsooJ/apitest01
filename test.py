@@ -24,6 +24,9 @@ users = [
 
 class User(Resource):
     def get(self,name):
+        if name is None:
+            return users,200
+
         for user in users:
             if(name == user["name"]):
                 return user,200
@@ -44,7 +47,7 @@ class User(Resource):
             "age": args["age"],
             "address": args["address"],
         }
-        user.append(user)
+        users.append(user)
         return user, 201
 
     def put(self,name):
@@ -64,7 +67,7 @@ class User(Resource):
             "age": args["age"],
             "address": args["address"],
         }
-        user.append(user)
+        users.append(user)
         return user, 201
 
     def delete(self,name):
@@ -73,5 +76,6 @@ class User(Resource):
         return "{} is deleted.".format(name), 200
 
 api.add_resource(User, "/user/<string:name>")
+
 app.run(debug=True)
 
